@@ -1,0 +1,29 @@
+.inputName,
+.inputSurname,
+.inputPhone,
+.inputMail {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  position: relative;
+}
+.inputName::before,
+.inputSurname::before,
+.inputPhone::before,
+.inputMail::before {
+  content: "Name:";
+  position: absolute;
+  top: -1.7rem;
+  opacity: 0.5;
+  color: black;
+}
+.inputSurname::before {
+  content: "Surname:";
+}
+.inputPhone::before {
+  content: "Phone Number:";
+}
+.inputMail::before {
+  content: "Email:";
+}
