@@ -16,7 +16,7 @@ export const Header = () => {
       "
       >
         <div>
-          <NavLink to="/">
+          <NavLink to="/catshop">
             <GiCat className="w-10 h-10 p-1 text-3xl hover:bg-black hover:text-white transition-all duration-1000 border border-solid border-black rounded-full" />
           </NavLink>
         </div>
