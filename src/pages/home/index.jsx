@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { ProductLink } from "../../entities/productLink";
-
+import { LazyLoadImage } from "react-lazy-load-image-component";
 export const Home = () => {
   const products = useLoaderData();
   // const title = products.title.slice(0, 80) + "...";
@@ -25,10 +25,12 @@ export const Home = () => {
           >
             <div className="flex flex-col items-center p-4">
               <div className="max-w-80 max-h-80 p-2 overflow-hidden">
-                <img
+                <LazyLoadImage
                   src={`${product.image}`}
                   className="w-full max-h-full object-cover rounded-md"
                   alt={product.title}
+                  width={300}
+                  height={300}
                 />
               </div>
             </div>

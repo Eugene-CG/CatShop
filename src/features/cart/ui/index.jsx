@@ -30,41 +30,57 @@ export const Cart = ({ toggleShowCart }) => {
             <AiOutlineClose />
           </button>
         </div>
-        {productsList.map((product) => {
-          return (
-            <div
-              key={product.id}
-              className="mb-2 p-4 flex flex-col border-y border-solid border-gray-300"
+        {!productsList.length ? (
+          <div className="flex flex-col items-center justify-center gap-2 text-3xl text-red-500">
+            <p>Cart is Empty.</p>
+            <button
+              onClick={toggleShowCart}
+              className="font-serif border-b border-solid border-red-500 hover:text-black hover:border-black transition-all duration-300"
             >
-              <div className="flex items-start text-xl">
-                <div className="w-24 h-24">
-                  <img
-                    className="w-full h-full p-2 object-cover rounded-md"
-                    src={`${product.image}`}
-                    alt={`${product.title}`}
-                  />
+              Buy something maybe
+            </button>
+          </div>
+        ) : (
+          productsList.map((product) => {
+            return (
+              <div
+                key={product.id}
+                className="mb-2 p-4 flex flex-col border-y border-solid border-gray-300"
+              >
+                <div className="flex items-start text-xl">
+                  <div className="w-24 h-24">
+                    <img
+                      className="w-full h-full p-2 object-cover rounded-md"
+                      src={`${product.image}`}
+                      alt={`${product.title}`}
+                    />
+                  </div>
+                  <div className="w-full flex justify-between">
+                    <div>{product.title}</div>
+                    <button
+                      className="h-[24px] hover:text-red-600 transition-all duration-300"
+                      onClick={() => deleteProduct(product.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
-                <div className="w-full flex justify-between">
-                  <div>{product.title}</div>
-                  <button
-                    className="h-[24px] hover:text-red-600 transition-all duration-300"
-                    onClick={() => deleteProduct(product.id)}
-                  >
-                    Delete
-                  </button>
+                <div className="w-full self-end flex items-center justify-between text-3xl">
+                  <div className="w-16 ml-4 flex gap-2 text-3xl items-center">
+                    <button onClick={() => decreaseAmount(product.id)}>
+                      -
+                    </button>
+                    <span>{product.amount}</span>
+                    <button onClick={() => increaseAmount(product.id)}>
+                      +
+                    </button>
+                  </div>
+                  <div>{(product.price * product.amount).toFixed(2)}$</div>
                 </div>
               </div>
-              <div className="w-full self-end flex items-center justify-between text-3xl">
-                <div className="w-16 ml-4 flex gap-2 text-3xl items-center">
-                  <button onClick={() => decreaseAmount(product.id)}>-</button>
-                  <span>{product.amount}</span>
-                  <button onClick={() => increaseAmount(product.id)}>+</button>
-                </div>
-                <div>{(product.price * product.amount).toFixed(2)}$</div>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
 
         <div className="mt-6 flex justify-between text-2xl">
           <button
