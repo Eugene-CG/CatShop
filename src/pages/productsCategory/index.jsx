@@ -18,7 +18,7 @@ export const ProductsCategory = () => {
         // Lmao
         return (
           <Link
-            to={`/${product.category}/${product.id}`}
+            to={`/catshop/${product.category}/${product.id}`}
             key={product.id}
             className="   flex flex-col justify-between items-center  
             border border-solid border-gray-400 rounded-md opacity-90 hover:opacity-100 hover:border-blue-500 transition-all duration-200"

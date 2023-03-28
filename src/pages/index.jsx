@@ -17,7 +17,7 @@ import { productsCaregotyLoader } from "./productsCategory/productsCategoryLoade
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route
-      path="/catshop"
+      path="/"
       element={<Header />}
     >
       <Route
