@@ -3,11 +3,12 @@ import { NavLink, Outlet } from "react-router-dom";
 import { Cart } from "../../../features/cart/ui";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { GiCat } from "react-icons/gi";
+import { useSelector } from "react-redux";
 export const Header = () => {
   const [showCart, setShowCart] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const toggleShowCart = () => setShowCart(!showCart);
-
+  const productsList = useSelector((state) => state.cart);
   return (
     <>
       {showCart && <Cart toggleShowCart={toggleShowCart} />}
@@ -70,6 +71,7 @@ export const Header = () => {
               <button
                 className="flex items-center justify-center text-2xl bg-gray-200"
                 onClick={toggleShowCart}
+                disabled={productsList.length === 0}
               >
                 Cart
               </button>
@@ -114,8 +116,9 @@ export const Header = () => {
           </div> */}
         </nav>
         <button
-          className="hidden lg:block border-2 border-black border-y-transparent hover:border-y-2 hover:border-x-transparent hover:border-solid hover:border-black transition-all duration-300"
+          className="p-2 hidden lg:block border-2 border-black border-y-transparent hover:border-y-2 hover:border-x-transparent hover:border-solid cursor-pointer hover:border-black rounded-3xl transition-all duration-300"
           onClick={toggleShowCart}
+          disabled={productsList.length === 0}
         >
           Cart
         </button>

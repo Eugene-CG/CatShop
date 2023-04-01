@@ -1,10 +1,18 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLoaderData } from "react-router-dom";
-import { addProductToCart } from "../../features/cart/model/cartSlice";
+import {
+  addProductToCart,
+  deleteProductFromCart,
+  increaseProductAmount,
+  decreaseProductAmount,
+} from "../../features/cart/model/cartSlice";
 
 export const ProductPage = () => {
   const product = useLoaderData();
+  console.log(product);
+  const [btnIsClicked, setBtnIsClicked] = useState(false);
+  const [productAmount, setProductAmount] = useState(1);
   // addProduct
   const dispatch = useDispatch();
   const addProduct = () => {
@@ -13,6 +21,19 @@ export const ProductPage = () => {
       amount: 1,
     };
     dispatch(addProductToCart(newProd));
+    setBtnIsClicked(!btnIsClicked);
+  };
+  const productsList = useSelector((state) => state.cart);
+  const deleteProduct = (id) => {
+    dispatch(deleteProductFromCart({ id: id }));
+  };
+  const increaseAmount = (id) => {
+    dispatch(increaseProductAmount({ id: id }));
+    setProductAmount(productAmount + 1);
+  };
+  const decreaseAmount = (id) => {
+    dispatch(decreaseProductAmount({ id: id }));
+    setProductAmount(productAmount - 1);
   };
   return (
     <div className="mt-6 flex flex-col items-center md:flex-row md:items-stretch justify-center gap-4">
@@ -33,16 +54,38 @@ export const ProductPage = () => {
           <p>Price: {product.price}$</p>
         </div>
         <div>
-          <button
-            onClick={addProduct}
-            className="
+          {btnIsClicked ? (
+            <div className="mt-4 py-2 flex gap-6 items-center text-3xl border-y border-solid border-gray-500">
+              <button
+                onClick={() => decreaseAmount(product.id)}
+                className="w-[70px] p-4 border border-solid border-black rounded-[10rem] hover:bg-gray-300 focus:bg-green-100 transia\
+             duration-300"
+              >
+                -
+              </button>
+              <div className="border-b-2 border-solid border-black">
+                {productAmount}
+              </div>
+              <button
+                onClick={() => increaseAmount(product.id)}
+                className="w-[70px] p-4 border border-solid border-black rounded-[10rem] hover:bg-gray-300 focus:bg-green-100 transia\
+             duration-300"
+              >
+                +
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={addProduct}
+              className="
           mt-4 px-16 py-4
           border-2 border-solid border-blue-400 rounded-[3rem]
           text-xl font-bold
           hover:text-white hover:bg-black transition-all duration-300"
-          >
-            Add to Cart
-          </button>
+            >
+              {btnIsClicked ? "Added to Cart!" : "Add to Cart"}
+            </button>
+          )}
         </div>
       </div>
     </div>
